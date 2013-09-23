@@ -8,13 +8,6 @@ export NODE_PATH=$NODE_HOME/lib/node_modules/
 export SVN_USERNAME=bdina
 export PROVISIONER="chef_solo"
 
-# alias for vagrant
-alias vup='vproxy up'
-alias vd='vproxy destroy'
-alias vsh='vproxy ssh'
-alias vs='vproxy status'
-alias vh='vproxy halt'
-
 # general alias
 alias ls='ls -G'
 alias ds='dirs -v'
@@ -33,8 +26,6 @@ alias nkill="pgrep -l node|cut -d ' ' -f 1|xargs kill"
 
 # uncomment to turn modify the node.js prompt (and make it purple in color)
 # alias node="env NODE_NO_READLINE=1 rlwrap -ppurple node"
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # setup the OCaml OPAM environment
 eval `opam config -env`

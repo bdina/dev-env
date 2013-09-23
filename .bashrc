@@ -1,5 +1,5 @@
 export COVERSHOT_HOME=$NODE_HOME/lib/node_modules/covershot
-export PATH=$COVERSHOT_HOME/bin:~/bin:$NODE_HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH=$COVERSHOT_HOME/bin:~/bin:$NODE_HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 RS='\[\e[0m\]'
 GR='\[\e[0;32m\]'
