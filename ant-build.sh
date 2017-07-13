@@ -26,6 +26,16 @@ FSWATCH_EXCLUDES='--exclude=(\..*\.sw[px]|#.*#)'
 NOTIFY_SEND=`which notify-send`
 GROWL_NOTIFY=`which growlnotify`
 
+if [ -z "$1" ] && [ -z "$2" ]; then
+    echo "usage: ant-build <src_dir> <target>"
+    exit 1
+fi
+SRC_DIR=$1; shift
+ANT_TARGET=$@
+
+echo "SRC --> $SRC_DIR"
+echo "TARGETS --> $ANT_TARGET"
+
 function notify-send {
     prio="normal"
     type="$1"
@@ -46,27 +56,38 @@ function notify-send {
 
 function wait-for-changes {
     if [ "$OS_NAME" == "Darwin" ]; then
-        $FSWATCH_WAIT $FSWATCH_VERBOSITY $FSWATCH_FLAGS --exclude "$FSWATCH_EXCLUDES" . || exit 1
+        $FSWATCH_WAIT $FSWATCH_VERBOSITY $FSWATCH_FLAGS --exclude "$FSWATCH_EXCLUDES" $SRC_DIR || exit 1
     else
-        $INOTIFY_WAIT $INOTIFY_VERBOSITY $INOTIFY_FLAGS --exclude "$INOTIFY_EXCLUDES" . || exit 1
+        $INOTIFY_WAIT $INOTIFY_VERBOSITY $INOTIFY_FLAGS --exclude "$INOTIFY_EXCLUDES" $SRC_DIR || exit 1
     fi
 }
 
+# trap ctrl-c and call ctrl_c()
+trap ctrl_c INT
+
+function ctrl_c() {
+    printf "\n%s\n" "normal termination"
+    exit 0
+}
+
+readonly TAGS_BIN=`which ctags`
+function generate-tags {
+    $TAGS_BIN -R --c++-kinds=+p --fields=+iaS --extra=+q .
+}
+
 echo "--- Starting build loop at: 
----  '$SCRIPTPATH'"
-pushd "$SCRIPTPATH" 2>&1 > /dev/null || exit 1
+---  '$PWD'"
+pushd "$PWD" 2>&1 > /dev/null || exit 1
 
 # Perform the build loop
 while [[ 1 -eq 1 ]]; do
     notify-send "gtk-info" "3000" "Build started..." "Build started at `date`"
 
-    ant clean || exit 1
-
-    echo ""
-    ant compile
+    ant $ANT_TARGET
 
     if [[ $? -eq 0 ]]; then
         notify-send "gtk-apply" "5000" "Build SUCCESSFUL!" "Build successfully finished at `date`"
+        generate-tags
     else
         notify-send "gtk-no" "10000" "Build FAILED!!!" "Build finished at `date`"
     fi
