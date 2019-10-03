@@ -2,7 +2,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Bryan Dina's .vimrc <bryansdina@gmail.com>
 "
-" Version: 0.6
+" Version: 0.7
 "
 " Required Plugins:
 "   - taglist.vim 4.5
@@ -143,6 +143,11 @@ set tw=500
 set ai "Auto indent
 set si "Smart indet
 set wrap "Wrap lines
+
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
