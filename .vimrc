@@ -185,13 +185,6 @@ map <M-right> <C-]>
 " PLUGIN CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" taglist plugin
-" Configure the taglist plugin to use exhuberant ctags and bind the taglist
-" window to F4
-let Tlist_Ctags_Cmd = "/usr/bin/ctags"
-let Tlist_WinWidth = 50
-map <F4> :TlistToggle<cr>
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TRICKERY CONFIGURATION
