@@ -1,8 +1,3 @@
 tags
-.jshintrc
-.autoreplrc
-covershot/
-lib-cov/
 *.tar.gz
-plato/
 .DS_Store
