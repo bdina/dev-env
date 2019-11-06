@@ -5,9 +5,24 @@
 " Version: 0.7
 "
 " Required Plugins:
-"   - taglist.vim 4.5
-"     URL: http://vim.sourceforge.net/scripts/script.php?script_id=273
+"   - vim-plug handles all required plugins as of v0.7 of this .vimrc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" plugin configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+call plug#begin()
+
+Plug 'tfnico/vim-gradle'
+Plug 'derekwyatt/vim-scala'
+
+call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
@@ -192,3 +207,5 @@ cmap w!! w !sudo tee > /dev/null %
 if exists('$TMUX')
     set ttymouse=xterm2
 endif
+
+
