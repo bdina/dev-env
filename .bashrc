@@ -1,5 +1,4 @@
-export COVERSHOT_HOME=$NODE_HOME/lib/node_modules/covershot
-export PATH=$COVERSHOT_HOME/bin:~/bin:$NODE_HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export PATH=~/bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 RS='\[\e[0m\]'
 GR='\[\e[0;32m\]'
@@ -13,5 +12,3 @@ export PS1="$GR\u$RS@$GR\h$RS:$RD\w$RS [$YL\!$RS] $GR>>$RS "
 
 # custom bash prompt (no colors)
 #PS1="\u@\h:\w [\!] >> "
-
-. ~/.berksenv
