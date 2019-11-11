@@ -2,14 +2,14 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Bryan Dina's .vimrc <bryansdina@gmail.com>
 "
-" Version: 0.7
+" Version: 0.8
 "
 " Required Plugins:
 "   - vim-plug handles all required plugins as of v0.7 of this .vimrc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin configuration
+" Plugin Configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -20,9 +20,25 @@ endif
 call plug#begin()
 
 Plug 'tfnico/vim-gradle'
+
 Plug 'derekwyatt/vim-scala'
 
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
+
+let mapleader = ","
+
+" Fuzzy finder
+let g:fzf_command_prefix = 'Fzf'
+nnoremap <leader>v :FzfFiles<cr>
+nnoremap <leader>u :FzfTags<cr>
+nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
@@ -37,6 +53,11 @@ filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
+
+if !has("gui_running")
+    " trigger event on buffer change to autoread latest bits
+    autocmd! FocusGained,BufEnter * :checktime
+endif
 
 " When vimrc is edited, reload it
 autocmd! bufwritepost vimrc source ~/.vim_runtime/vimrc
@@ -174,16 +195,11 @@ set foldlevel=2
 set tags=tags;/
 
 " Build tags (super fast) by pressing F8
-map <F8> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map <F8> :!/usr/local/bin/ctags -R .<CR>
 
 " Map alt-right/left to navigate forward/backward in the tags stack
 map <M-left> <C-T>
 map <M-right> <C-]>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PLUGIN CONFIGURATION
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
