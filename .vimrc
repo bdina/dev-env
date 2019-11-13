@@ -4,7 +4,8 @@
 "
 " Version: 0.8
 "
-" Required Plugins:
+" Required:
+"   - exuberant ctags v5.8+ (e.g. brew install ctags)
 "   - vim-plug handles all required plugins as of v0.7 of this .vimrc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -28,6 +29,10 @@ Plug 'tpope/vim-dispatch'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'majutsushi/tagbar'
 
 call plug#end()
 
@@ -192,10 +197,11 @@ set foldlevel=2
 
 " Look in the current directory for 'tags' file or work up the directory
 " tree until one is found
-set tags=tags;/
+"set tags=tags;/
 
 " Build tags (super fast) by pressing F8
-map <F8> :!/usr/local/bin/ctags -R .<CR>
+"map <F8> :!/usr/local/bin/ctags -f .tags -R .<CR>
+nmap <F8> :TagbarToggle<CR>
 
 " Map alt-right/left to navigate forward/backward in the tags stack
 map <M-left> <C-T>
