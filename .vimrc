@@ -2,7 +2,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Bryan Dina's .vimrc <bryansdina@gmail.com>
 "
-" Version: 0.8
+" Version: 0.9
 "
 " Required:
 "   - exuberant ctags v5.8+ (e.g. brew install ctags)
