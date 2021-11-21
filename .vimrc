@@ -34,6 +34,8 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
 Plug 'majutsushi/tagbar'
 
+Plug 'jremmen/vim-ripgrep'
+
 call plug#end()
 
 let mapleader = ","
@@ -224,3 +226,10 @@ if exists('$TMUX')
 endif
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RipGrep CONFIGURATION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rg_command = 'rg --vimgrep -S'
+
+" Transparent background
+hi Normal guibg=NONE ctermbg=NONE
