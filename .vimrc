@@ -48,23 +48,6 @@ call plug#end()
 
 let mapleader = ","
 
-" Fuzzy finder
-let g:fzf_command_prefix = 'Fzf'
-nnoremap <leader>v :FzfFiles<cr>
-nnoremap <leader>u :FzfTags<cr>
-nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
-
-" ripgrep integration (via ctrl-p)
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
-" ripgrep integration (via vim grep)
-let g:rg_command = 'rg --vimgrep -S'
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
@@ -240,18 +223,39 @@ cmap w!! w !sudo tee > /dev/null %
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 if exists('$TMUX')
     set ttymouse=xterm2
 endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fuzzy finder CONFIGURATION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:fzf_command_prefix = 'Fzf'
+nnoremap <leader>v :FzfFiles<cr>
+nnoremap <leader>u :FzfTags<cr>
+nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RipGrep CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:rg_command = 'rg --vimgrep -S'
 
 " Transparent background
 hi Normal guibg=NONE ctermbg=NONE
+
+" ripgrep integration (via ctrl-p)
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" ripgrep integration (via vim grep)
+let g:rg_command = 'rg --vimgrep -S'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
