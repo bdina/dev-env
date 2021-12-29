@@ -2,12 +2,13 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Bryan Dina's .vimrc <bryansdina@gmail.com>
 "
-" Version: 0.11
+" Version: 0.12
 "
 " Required:
-"   - exuberant ctags v5.8+ (e.g. brew install ctags)
+"   - Universal ctags v5.9.0+ (e.g. brew install universal-ctags)
+"   - ripgrep v13.0.0 (e.g. brew install ripgrep)
+"   - stags (scala tags generator)
 "   - vim-plug handles all required plugins as of v0.7 of this .vimrc
-"   - ripgrep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -198,9 +199,10 @@ set foldlevel=2
 " tree until one is found
 "set tags=tags;/
 
-" Build tags (super fast) by pressing F8
-"map <F8> :!/usr/local/bin/ctags -f .tags -R .<CR>
-nmap <F8> :TagbarToggle<CR>
+" Toggle tag bar by pressing F8
+map <F8> :TagbarToggle<CR>
+" Build tags (super fast) by pressing F9
+map <F9> :!/usr/local/bin/stags -o .tags .<CR>
 
 " Map alt-right/left to navigate forward/backward in the tags stack
 map <M-left> <C-T>
@@ -256,6 +258,16 @@ let g:rg_command = 'rg --vimgrep -S'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EasyTags CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:easytags_languages = {
+\  'scala': {
+\    'cmd': '/usr/local/bin/stags',
+\    'args': [],
+\    'fileoutput_opt': '',
+\    'stdout_opt': '',
+\    'recurse_flag': ''
+\  }
+\}
+
 let g:easytags_events = ['BufReadPost', 'BufWritePost']
 let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
