@@ -202,7 +202,11 @@ set tags=./.tags;,.tags;
 " Toggle tag bar by pressing F8
 map <F8> :TagbarToggle<CR>
 " Build tags (super fast) by pressing F9
-map <F9> :!/usr/local/bin/stags -o .tags .<CR>
+if executable('/usr/local/bin/stags')
+    map <F9> :!/usr/local/bin/stags -o .tags .<CR>
+else
+    map <F9> :!/usr/local/bin/ctags -f .tags -R .<CR>
+endif
 
 " Map alt-right/left to navigate forward/backward in the tags stack
 map <M-left> <C-T>
@@ -258,16 +262,17 @@ let g:rg_command = 'rg --vimgrep -S'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EasyTags CONFIGURATION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:easytags_languages = {
-\  'scala': {
-\    'cmd': '/usr/local/bin/stags',
-\    'args': ['-o','.tags'],
-\    'fileoutput_opt': '',
-\    'stdout_opt': '',
-\    'recurse_flag': ''
-\  }
-\}
-
+if executable('/usr/local/bin/stags')
+  let g:easytags_languages = {
+  \  'scala': {
+  \    'cmd': '/usr/local/bin/stags',
+  \    'args': ['-o','.tags'],
+  \    'fileoutput_opt': '',
+  \    'stdout_opt': '',
+  \    'recurse_flag': ''
+  \  }
+  \}
+endif
 
 let g:easytags_file = './.tags'
 let g:easytags_events = ['BufReadPost', 'BufWritePost']
