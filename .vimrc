@@ -197,7 +197,7 @@ set foldlevel=2
 
 " Look in the current directory for 'tags' file or work up the directory
 " tree until one is found
-"set tags=tags;/
+set tags=./.tags;,.tags;
 
 " Toggle tag bar by pressing F8
 map <F8> :TagbarToggle<CR>
@@ -261,13 +261,15 @@ let g:rg_command = 'rg --vimgrep -S'
 let g:easytags_languages = {
 \  'scala': {
 \    'cmd': '/usr/local/bin/stags',
-\    'args': [],
+\    'args': ['-o','.tags'],
 \    'fileoutput_opt': '',
 \    'stdout_opt': '',
 \    'recurse_flag': ''
 \  }
 \}
 
+
+let g:easytags_file = './.tags'
 let g:easytags_events = ['BufReadPost', 'BufWritePost']
 let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
