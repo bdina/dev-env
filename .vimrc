@@ -2,7 +2,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Bryan Dina's .vimrc <bryansdina@gmail.com>
 "
-" Version: 0.12
+" Version: 0.13
 "
 " Required:
 "   - Universal ctags v5.9.0+ (e.g. brew install universal-ctags)
@@ -257,6 +257,36 @@ endif
 
 " ripgrep integration (via vim grep)
 let g:rg_command = 'rg --vimgrep -S'
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" stags CONFIGURATION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! QualifiedTagJump() abort
+    let l:plain_tag = expand("<cword>")
+    let l:orig_keyword = &iskeyword
+    set iskeyword+=\.
+    let l:word = expand("<cword>")
+    let &iskeyword = l:orig_keyword
+
+    let l:splitted = split(l:word, '\.')
+    let l:acc = []
+    for wo in l:splitted
+        let l:acc = add(l:acc, wo)
+        if wo ==# l:plain_tag
+            break
+        endif
+    endfor
+
+    let l:combined = join(l:acc, ".")
+    try
+        execute "ta " . l:combined
+    catch /.*E426.*/ " Tag not found
+        execute "ta " . l:plain_tag
+    endtry
+endfunction
+
+nnoremap <silent> <C-]> :<C-u>call QualifiedTagJump()<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
