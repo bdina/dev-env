@@ -22,7 +22,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin()
 
-Plug 'tfnico/vim-gradle'
+Plug 'bdina/vim-gradle.hdiniz'
 
 Plug 'derekwyatt/vim-scala'
 
@@ -118,12 +118,15 @@ syntax enable "Enable syntax highlighting
 
 " Set font according to system
 if has("mac")
-    set gfn=Source\ Code\ Pro:h10
-    set shell=/bin/bash
+    "set gfn=Source\ Code\ Pro:h12
+    set shell=/usr/local/bin/bash
+    set macligatures
+    "set guifont=Fira\ Code:h12
+    set guifont=Cascadia\ Code:h12
 elseif has("win32")
-    set gfn=Bitstream\ Vera\ Sans\ Mono:h10
+    set gfn=Bitstream\ Vera\ Sans\ Mono:h12
 elseif has("linux")
-    set gfn=Monospace\ 10
+    set gfn=Monospace\ 12
     set shell=/bin/bash
 endif
 
@@ -134,7 +137,7 @@ if has("gui_running")
     set background=dark
     colorscheme desert 
 else
-    colorscheme delek
+    colorscheme desert
     set background=dark
 endif
 
@@ -174,8 +177,8 @@ endtry
 " Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set smarttab
 
 set lbr
@@ -197,15 +200,16 @@ set foldlevel=2
 
 " Look in the current directory for 'tags' file or work up the directory
 " tree until one is found
-set tags=./.tags;,.tags;
+set tags=./.tags,.tags;
 
 " Toggle tag bar by pressing F8
-map <F8> :TagbarToggle<CR>
+map <F1> :TagbarToggle<CR>
 " Build tags (super fast) by pressing F9
 if executable('/usr/local/bin/stags')
-    map <F9> :!/usr/local/bin/stags -o .tags .<CR>
+    map <silent> <F8> :!find . -name '.tags' -delete<CR>
+    map <silent> <F9> :!/usr/local/bin/stags -o .tags .<CR>
 else
-    map <F9> :!/usr/local/bin/ctags -f .tags -R .<CR>
+    map <silent> <F9> :!/usr/local/bin/ctags -f .tags -R .<CR>
 endif
 
 " Map alt-right/left to navigate forward/backward in the tags stack
@@ -310,3 +314,10 @@ let g:easytags_async = 1
 let g:easytags_dynamic_files = 2
 let g:easytags_resolve_links = 1
 let g:easytags_suppress_ctags_warning = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" configure gradle as build (make) compiler
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let $LANG='en_US.UTF-8'
+"compiler! gradle
